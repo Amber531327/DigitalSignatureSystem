@@ -5,28 +5,30 @@ describe('DSA Algorithm', () => {
   let dsa: DSA;
   let keyPair: KeyPair;
   
-  // Setup - generate keys once for all tests
+  // 在所有测试前生成密钥对
   beforeAll(async () => {
     dsa = new DSA();
     keyPair = await dsa.generateKeys();
-    // Ensure keys were generated
+    // 确保密钥已生成
     expect(keyPair.publicKey).toBeDefined();
     expect(keyPair.privateKey).toBeDefined();
-  }, 60000); // DSA key generation can take longer, allow 60 seconds
+  }, 60000); // DSA密钥生成可能需要更长时间，允许60秒
   
+  // 测试密钥是否格式正确
   test('should have correctly formatted keys', () => {
-    // Public key
+    // 公钥
     expect(keyPair.publicKey.p).toBeDefined();
     expect(keyPair.publicKey.q).toBeDefined();
     expect(keyPair.publicKey.g).toBeDefined();
     expect(keyPair.publicKey.y).toBeDefined();
     
-    // Private key
+    // 私钥
     expect(keyPair.privateKey.x).toBeDefined();
   });
   
+  // 测试公钥中的域参数是否相同
   test('should have same domain parameters in publicKey', () => {
-    // The p, q, and g parameters should be shared
+    // p, q 和 g 参数应共享
     const publicP = keyPair.publicKey.p;
     const publicQ = keyPair.publicKey.q;
     const publicG = keyPair.publicKey.g;
@@ -36,15 +38,16 @@ describe('DSA Algorithm', () => {
     expect(publicG).toBeDefined();
   });
   
+  // 测试参数值是否有效
   test('should have valid parameter values', () => {
-    // Values should be valid BigInt objects
+    // 值应为有效的BigInt对象
     expect(typeof keyPair.publicKey.p).toBe('bigint');
     expect(typeof keyPair.publicKey.q).toBe('bigint');
     expect(typeof keyPair.publicKey.g).toBe('bigint');
     expect(typeof keyPair.publicKey.y).toBe('bigint');
     expect(typeof keyPair.privateKey.x).toBe('bigint');
     
-    // Use the BigInt values directly
+    // 直接使用BigInt值
     const p = keyPair.publicKey.p;
     const q = keyPair.publicKey.q;
     const g = keyPair.publicKey.g;
@@ -57,34 +60,36 @@ describe('DSA Algorithm', () => {
     expect(y).toBeGreaterThan(0n);
     expect(x).toBeGreaterThan(0n);
     
-    // p should be larger than q
+    // p应大于q
     expect(p).toBeGreaterThan(q);
     
-    // g should be less than p
+    // g应小于p
     expect(g).toBeLessThan(p);
     
-    // y should be less than p
+    // y应小于p
     expect(y).toBeLessThan(p);
   });
   
+  // 测试参数是否具有适当的位长度
   test('should have parameters with appropriate bit length', () => {
-    // Use the BigInt values directly
+    // 直接使用BigInt值
     const p = keyPair.publicKey.p;
     const q = keyPair.publicKey.q;
     
-    // Convert to binary and count bits
+    // 转换为二进制并计算位数
     const pBitLength = p.toString(2).length;
     const qBitLength = q.toString(2).length;
     
-    // p should be at least a 1024 bits
+    // p至少应为1024位
     expect(pBitLength).toBeGreaterThanOrEqual(1024);
     
-    // q should be at least 160 bits
+    // q至少应为160位
     expect(qBitLength).toBeGreaterThanOrEqual(160);
   });
   
   // 签名和验证测试
   describe('Signature and Verification', () => {
+    // 测试是否能成功签名和验证消息
     test('should successfully sign and verify a message', async () => {
       const message = "Hello, DSA digital signature!";
       
@@ -103,6 +108,7 @@ describe('DSA Algorithm', () => {
       console.info(`原始消息验证结果: ${result ? '成功✓' : '失败✗'}`);
     });
     
+    // 测试签名是否具有预期格式
     test('should return signature with expected format', async () => {
       const message = "Testing DSA signature format";
       
@@ -126,6 +132,7 @@ describe('DSA Algorithm', () => {
       expect(signature.qBits).toBeDefined();
     });
     
+    // 测试对篡改消息的签名验证应被拒绝
     test('should reject signatures for tampered messages', async () => {
       // 原始消息
       const originalMessage = "Original message for DSA testing";
@@ -145,6 +152,7 @@ describe('DSA Algorithm', () => {
       console.info(`篡改消息验证结果: ${invalidResult ? '错误地成功✗' : '正确地失败✓'}`);
     });
     
+    // 测试篡改过的签名应被拒绝
     test('should reject tampered signatures', async () => {
       // 原始消息
       const message = "Message for tampered signature test";
@@ -181,6 +189,7 @@ describe('DSA Algorithm', () => {
       console.info(`篡改s值验证结果: ${result2 ? '错误地成功✗' : '正确地失败✓'}`);
     });
     
+    // 测试不同长度消息的签名验证
     test('should verify signatures with different message lengths', async () => {
       // 测试不同长度的消息
       const messages = [
@@ -206,6 +215,7 @@ describe('DSA Algorithm', () => {
       }
     });
     
+    // 测试无效的r或s值的签名应被拒绝
     test('should reject signatures with invalid r or s values', async () => {
       const message = "Testing invalid signature components";
       const signature = await dsa.sign(message, keyPair);
