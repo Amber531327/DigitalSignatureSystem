@@ -1,18 +1,6 @@
 import { KeyPair, SignatureResult, CryptoAlgorithm } from './types';
 
-/**
- * 自实现ECDSA算法（椭圆曲线数字签名算法）
- * 不依赖任何外部库，仅使用JavaScript内置功能
- * 
- * 椭圆曲线方程：y² = x³ + ax + b (mod p)
- * 基于secp256k1曲线 (与比特币和以太坊使用的相同)
- * 参数：
- * - p: 素数域
- * - a: 曲线参数
- * - b: 曲线参数
- * - G: 基点(生成元)
- * - n: 曲线阶(基点G的阶)
- */
+
 export class ECDSA implements CryptoAlgorithm {
   // secp256k1曲线参数
   private readonly p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2Fn;

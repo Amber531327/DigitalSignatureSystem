@@ -4,6 +4,9 @@ import AlgorithmSelector from '../components/AlgorithmSelector';
 import StepActions from '../components/StepActions';
 import VisualizationArea from '../components/VisualizationArea';
 import UserRole from '../components/UserRole';
+import SuccessConfetti from '../components/SuccessConfetti';
+import ParticleBackground from '../components/ParticleBackground';
+
 
 export default function Home() {
   // State for the selected algorithm
@@ -129,7 +132,12 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1 className="title">数字签名可视化系统</h1>
+      {/* 添加粒子背景 */}
+      <ParticleBackground />
+      
+      <h1 className="title">
+        数字签名可视化系统
+      </h1>
       
       <AlgorithmSelector 
         selectedAlgorithm={algorithm} 
@@ -334,6 +342,11 @@ export default function Home() {
                     </div>
                   </motion.div>
                 )}
+
+                {/* 验证成功时显示庆祝效果 */}
+                <SuccessConfetti show={verificationResult === true && animation === 'verification-success'} />
+                
+               
               </>
             )}
           </AnimatePresence>
@@ -493,6 +506,7 @@ export default function Home() {
         
         <div className="keys-display-area"></div>
       </div>
+
     </div>
   );
 } 

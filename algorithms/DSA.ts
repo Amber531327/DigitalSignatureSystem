@@ -367,7 +367,7 @@ export class DSA implements CryptoAlgorithm {
     const k = new Uint8Array(32).fill(0);  // K = 0x00 0x00 0x00 ... 0x00
     
     // 使用HMAC-SHA256进行计算，但由于我们在浏览器环境可能无法使用HMAC
-    // 我们使用简化的方法计算一个伪HMAC
+    // 使用简化的方法计算一个伪HMAC
     
     // 第一步：合并数据
     const data1 = new Uint8Array(v.length + 1 + xBytes.length + mBytes.length);

@@ -101,10 +101,7 @@ npm test -- --testPathPattern=RSA
 │   ├── UserRole.tsx           # 用户角色展示组件
 │   ├── VisualizationArea.tsx  # 可视化展示区域组件
 │   ├── ParticleBackground.tsx # 背景粒子效果组件
-│   ├── SuccessConfetti.tsx    # 成功验证庆祝效果
-│   ├── TypingText.tsx         # 打字效果文本组件
-│   ├── ThemeIcons.tsx         # 主题图标组件
-│   └── VerificationBadge.tsx  # 验证结果标识组件
+│   └── SuccessConfetti.tsx    # 成功验证庆祝效果
 ├── pages/                # 页面目录
 │   ├── _app.tsx          # Next.js 应用入口
 │   └── index.tsx         # 主页面实现
