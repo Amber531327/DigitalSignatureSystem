@@ -26,10 +26,10 @@ const VisualizationArea: React.FC<VisualizationAreaProps> = ({
   modifiedMessage,
   attackedMessageHash,
 }) => {
-  // Content to display based on current step
+  // 展示目前步骤的组件
   const renderStepContent = () => {
     switch (currentStep) {
-      case 0: // Message Input
+      case 0: // 消息输入
         return (
           <div className="visualization-content message-step">
             <h3>输入消息</h3>
@@ -43,7 +43,7 @@ const VisualizationArea: React.FC<VisualizationAreaProps> = ({
           </div>
         );
 
-      case 1: // Key Generation
+      case 1: // 密钥生成
         return (
           <div className="visualization-content key-generation-step">
             <h3>{algorithm} 密钥生成</h3>
@@ -187,7 +187,7 @@ const VisualizationArea: React.FC<VisualizationAreaProps> = ({
           </div>
         );
 
-      case 2: // Signature Generation
+      case 2: // 签名生成
         return (
           <div className="visualization-content signature-generation-step">
             <h3>{algorithm} 签名生成</h3>
@@ -271,7 +271,7 @@ const VisualizationArea: React.FC<VisualizationAreaProps> = ({
           </div>
         );
 
-      case 3: // Signature Verification
+      case 3: // 签名验证
         return (
           <div className="visualization-content signature-verification-step">
             <h3>{algorithm} 签名验证</h3>

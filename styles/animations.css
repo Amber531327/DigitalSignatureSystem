@@ -1,6 +1,6 @@
-/* Animations for the Digital Signature Visualization System */
+/* 数字签名可视化系统的动画效果 */
 
-/* Floating animation for key icons */
+/* 密钥图标的浮动动画 */
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -13,7 +13,7 @@
   }
 }
 
-/* Pulse animation */
+/* 脉冲动画效果 */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -29,7 +29,7 @@
   }
 }
 
-/* Glowing effect */
+/* 发光效果 */
 @keyframes glow {
   0% {
     box-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
@@ -42,7 +42,7 @@
   }
 }
 
-/* Success celebration animation */
+/* 成功庆祝动画 */
 @keyframes celebrate {
   0% {
     transform: scale(1);
@@ -61,7 +61,7 @@
   }
 }
 
-/* Typing animation for the message display */
+/* 消息显示的打字动画 */
 @keyframes typing {
   from {
     width: 0;
@@ -71,7 +71,7 @@
   }
 }
 
-/* Warning effect for attack mode */
+/* 攻击模式的警告效果 */
 @keyframes warning {
   0%, 100% {
     border-color: #ffd700;
@@ -83,7 +83,7 @@
   }
 }
 
-/* Rotating hacker icon */
+/* 黑客图标旋转效果 */
 @keyframes rotate-hacker {
   0% {
     transform: rotate(0deg);
@@ -99,7 +99,7 @@
   }
 }
 
-/* Background particles animation */
+/* 背景粒子动画 */
 @keyframes particle-animation {
   0% {
     transform: translate3d(0, 0, 0);
@@ -111,36 +111,36 @@
   }
 }
 
-/* Apply animations to elements */
+/* 将动画应用到元素上 */
 
-/* Floating keys */
+/* 浮动的密钥 */
 .key-image, .permanent-key {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Pulse effect for buttons */
+/* 按钮的脉冲效果 */
 .action-button:hover {
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* Glowing effect for active steps */
+/* 活动步骤的发光效果 */
 .step-button.active {
   animation: glow 2s ease-in-out infinite;
 }
 
-/* Success celebration animation */
+/* 成功庆祝动画 */
 .result-indicator.success {
   animation: celebrate 1s ease-in-out;
 }
 
-/* Message display typing effect */
+/* 消息显示的打字效果 */
 .message-text {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 1s steps(40, end);
 }
 
-/* Attack mode warning effects */
+/* 攻击模式警告效果 */
 .attacked-message-indicator {
   animation: warning 2s ease-in-out infinite;
   border: 2px solid #ffd700;
@@ -149,12 +149,12 @@
   margin-top: 8px;
 }
 
-/* Hacker icon animation */
+/* 黑客图标动画 */
 .hacker-icon img {
   animation: rotate-hacker 3s ease-in-out infinite;
 }
 
-/* Enhance existing animations */
+/* 增强现有动画 */
 .hash-symbol, .signature-symbol {
   transition: all 0.3s ease;
 }
@@ -163,13 +163,13 @@
   transform: scale(1.2);
 }
 
-/* Background styling enhancement */
+/* 背景样式增强 */
 .container {
   position: relative;
   overflow: hidden;
 }
 
-/* Particles effect */
+/* 粒子效果 */
 .particle {
   position: absolute;
   width: 8px;
@@ -180,7 +180,7 @@
   animation: particle-animation 15s linear infinite;
 }
 
-/* Enhanced verification result display */
+/* 增强的验证结果显示 */
 .verification-result-content {
   transition: all 0.3s ease;
   transform-origin: center;
@@ -194,7 +194,7 @@
   background: linear-gradient(135deg, #F44336, #FF5722);
 }
 
-/* Enhanced key display */
+/* 增强的密钥显示 */
 .key-data {
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.1);
@@ -207,7 +207,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Signature flow enhancement */
+/* 签名流程增强 */
 .sig-process, .verify-process {
   background: linear-gradient(to bottom, rgba(240, 248, 255, 0.1), rgba(240, 248, 255, 0.3));
   border-radius: 12px;

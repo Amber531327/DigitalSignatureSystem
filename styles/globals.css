@@ -30,7 +30,7 @@ body {
   font-size: 2.2rem;
 }
 
-/* Algorithm Selector */
+
 .algorithm-selector {
   display: flex;
   justify-content: center;
@@ -61,14 +61,14 @@ body {
   border-color: #4a90e2;
 }
 
-/* Main Content Layout */
+/* 主要内容 */
 .main-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* User Roles */
+/* 用户角色 */
 .user-roles {
   display: flex;
   justify-content: space-between;
@@ -157,13 +157,13 @@ body {
   color: #555;
 }
 
-/* Workflow Layout */
+/* 工作流程 */
 .workflow {
   display: flex;
   gap: 2rem;
 }
 
-/* Step Actions */
+/* 步骤操作 */
 .step-actions {
   flex: 1;
   display: flex;
@@ -245,7 +245,7 @@ textarea {
   resize: vertical;
 }
 
-/* Visualization Area */
+/* 可视化区域 */
 .visualization-area {
   flex: 1.5;
   border: 1px solid #000;
@@ -261,7 +261,7 @@ textarea {
   height: 100%;
 }
 
-/* Keys Visualization */
+/* 密钥可视化 */
 .key-visualization {
   display: flex;
   flex-direction: column;
@@ -299,7 +299,7 @@ textarea {
   overflow-x: auto;
 }
 
-/* 新添加的键值对样式 */
+  /* 新添加的键值对样式 */
 .key-snippet {
   margin-bottom: 0.3rem;
   line-height: 1.5;
@@ -418,7 +418,7 @@ textarea {
   position: relative;
 }
 
-/* Signature Process Visualization */
+/* 签名过程可视化 */
 .signature-visualization,
 .verification-visualization {
   margin-top: 1.5rem;
@@ -501,7 +501,7 @@ textarea {
   background: #f3e5f5;
 }
 
-/* 添加哈希值显示样式 */
+  /* 添加哈希值显示样式 */
 .hash-value {
   font-family: monospace;
   font-size: 0.85rem;
@@ -607,7 +607,7 @@ textarea {
   color: #c62828;
 }
 
-/* Error Message */
+/* 错误信息 */
 .error-message {
   background-color: #ffebee;
   color: #c62828;
@@ -618,7 +618,7 @@ textarea {
   border-left: 4px solid #f44336;
 }
 
-/* Message Animation and Display */
+/* 消息动画和显示 */
 .message-flow-container {
   position: absolute;
   left: 8%;
@@ -695,7 +695,7 @@ textarea {
   white-space: nowrap;
 }
 
-/* Hash Flow Animation */
+/* 哈希流动画 */
 .hash-flow-container {
   position: absolute;
   left: 28.5%;
@@ -773,7 +773,7 @@ textarea {
   white-space: nowrap;
 }
 
-/* Signature Flow Animation */
+/* 签名流动画 */
 .signature-flow-container {
   position: absolute;
   left: 50%;
@@ -849,7 +849,7 @@ textarea {
   white-space: nowrap;
 }
 
-/* Verification Flow Arrows */
+/* 验证流动画 */
 .receiver-to-signature-arrow {
   position: absolute;
   top: 38%;
@@ -951,7 +951,7 @@ textarea {
   border-left: 4px solid #f44336;
 }
 
-/* Attack Visualization */
+/* 攻击可视化 */
 .attack-button-container {
   position: absolute;
   top: 320%;
@@ -1257,7 +1257,7 @@ textarea {
   font-size: 0.9rem;
 }
 
-/* Media Queries */
+ 
 @media (max-width: 768px) {
   .workflow {
     flex-direction: column;
@@ -1316,7 +1316,6 @@ textarea {
   }
 }
 
-/* Media Queries for Attack Visualization */
 @media (max-width: 768px) {
   .attack-button-container {
     position: static;

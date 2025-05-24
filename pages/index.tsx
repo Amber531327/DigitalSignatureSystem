@@ -9,39 +9,40 @@ import ParticleBackground from '../components/ParticleBackground';
 
 
 export default function Home() {
-  // State for the selected algorithm
+  // 选择的算法状态
   const [algorithm, setAlgorithm] = useState('RSA');
-  // State for the current step
+  // 当前步骤状态
   const [currentStep, setCurrentStep] = useState(0);
-  // State for the message
+  // 消息状态
   const [message, setMessage] = useState('');
-  // State for keys
+  // 密钥状态
   const [keys, setKeys] = useState<any>(null);
-  // State for signature
+  // 签名状态
   const [signature, setSignature] = useState<any>(null);
-  // State for verification result
+  // 验证结果状态
   const [verificationResult, setVerificationResult] = useState<boolean | null>(null);
-  // Animation state
+  // 动画状态
   const [animation, setAnimation] = useState<string | null>(null);
-  // Attack mode
+  // 攻击模式状态
   const [attackMode, setAttackMode] = useState(false);
-  // Modified message
+  // 修改后的消息状态
   const [modifiedMessage, setModifiedMessage] = useState('');
-  // Show attack input
+  // 显示攻击输入框状态
   const [showAttackInput, setShowAttackInput] = useState(false);
-  // Modified message hash
+  // 修改后消息的哈希值状态
   const [modifiedHash, setModifiedHash] = useState<string | null>(null);
 
+  // 定义步骤名称数组
   const steps = ['输入消息', '密钥生成', '签名生成', '签名验证'];
   
-  // Function to handle step changes
+  // 处理步骤变化的函数
   const handleStepChange = (step: number) => {
     if (step <= currentStep + 1) {
       setCurrentStep(step);
     }
   };
 
-  // Function to truncate message for display
+  // 截断消息以便显示的函数
   const getTruncatedMessage = () => {
     if (message.length > 10) {
       return `${message.substring(0, 10)}...`;
@@ -49,7 +50,7 @@ export default function Home() {
     return message;
   };
 
-  // Function to get hash display value
+  // 获取哈希显示值的函数
   const getHashDisplay = () => {
     if (signature && signature.messageHash) {
       return signature.messageHash.substring(0, 8) + '...';
@@ -57,7 +58,7 @@ export default function Home() {
     return null;
   };
 
-  // Function to get modified hash display value
+  // 获取修改后消息哈希显示值的函数
   const getModifiedHashDisplay = () => {
     if (modifiedHash) {
       return modifiedHash.substring(0, 8) + '...';
@@ -65,7 +66,7 @@ export default function Home() {
     return null;
   };
 
-  // Function to get signature display value
+  // 获取签名显示值的函数
   const getSignatureDisplay = () => {
     if (signature) {
       if (algorithm === 'RSA' && signature.signature) {
@@ -79,25 +80,25 @@ export default function Home() {
     return null;
   };
 
-  // Function to handle starting attack
+  // 处理开始攻击的函数
   const handleStartAttack = () => {
-    // Clear any existing verification results when starting an attack
+    // 开始攻击时清除现有的验证结果
     setVerificationResult(null);
-    // Reset animation state to remove any verification indicators
+    // 重置动画状态以移除任何验证指示器
     setAnimation(null);
-    // Show attack input and set attack mode
+    // 显示攻击输入框并设置攻击模式
     setShowAttackInput(true);
     setAttackMode(true);
   };
 
-  // Function to handle submitting modified message
+  // 处理提交修改后消息的函数
   const handleModifiedMessageSubmit = async () => {
     if (!modifiedMessage) return;
     
-    // Reset verification result to ensure no verification indicators appear
+    // 重置验证结果以确保不显示验证指示器
     setVerificationResult(null);
     
-    // Generate hash for modified message
+    // 为修改后的消息生成哈希值
     try {
       const encoder = new TextEncoder();
       const data = encoder.encode(modifiedMessage);
@@ -107,11 +108,11 @@ export default function Home() {
       
       setModifiedHash(hashHex);
       setShowAttackInput(false);
-      // Use 'attack-completed' as animation name instead of anything related to verification
+      // 使用'attack-completed'作为动画名称，而非与验证相关的名称
       setAnimation('attack-completed');
     } catch (err) {
       console.error('Error generating hash:', err);
-      // Fallback simple hash if WebCrypto API fails
+      // WebCrypto API失败时的简单哈希备用方案
       const hashHex = simpleHash(modifiedMessage);
       setModifiedHash(hashHex);
       setShowAttackInput(false);
@@ -119,7 +120,7 @@ export default function Home() {
     }
   };
 
-  // Simple hash function fallback
+  // 简单哈希函数（备用方案）
   const simpleHash = (text: string) => {
     let hash = 0;
     for (let i = 0; i < text.length; i++) {
@@ -135,10 +136,12 @@ export default function Home() {
       {/* 添加粒子背景 */}
       <ParticleBackground />
       
+      {/* 页面标题 */}
       <h1 className="title">
         数字签名可视化系统
       </h1>
       
+      {/* 算法选择器组件 */}
       <AlgorithmSelector 
         selectedAlgorithm={algorithm} 
         onSelectAlgorithm={setAlgorithm} 
@@ -146,6 +149,7 @@ export default function Home() {
       
       <div className="main-content">
         <div className="workflow">
+          {/* 步骤操作组件 */}
           <StepActions 
             steps={steps}
             currentStep={currentStep} 
@@ -163,6 +167,7 @@ export default function Home() {
             modifiedMessage={modifiedMessage}
           />
           
+          {/* 可视化区域组件 */}
           <VisualizationArea 
             currentStep={currentStep}
             algorithm={algorithm}
@@ -178,9 +183,11 @@ export default function Home() {
         </div>
         
         <div className="user-roles">
+          {/* 发送方和接收方用户角色 */}
           <UserRole type="sender" position="left" />
           <UserRole type="receiver" position="right" />
           
+          {/* 消息流动可视化 */}
           <AnimatePresence>
             {message && (
               <motion.div 
@@ -221,10 +228,11 @@ export default function Home() {
             )}
           </AnimatePresence>
           
+          {/* 哈希和签名流程可视化 */}
           <AnimatePresence>
             {currentStep >= 2 && signature && (
               <>
-                {/* Hash Visualization */}
+                {/* 哈希可视化 */}
                 <motion.div 
                   className="hash-flow-container"
                   initial={{ opacity: 0 }}
@@ -261,7 +269,7 @@ export default function Home() {
                   </motion.div>
                 </motion.div>
                 
-                {/* Signature Visualization */}
+                {/* 签名可视化 */}
                 <motion.div 
                   className="signature-flow-container"
                   initial={{ opacity: 0 }}
@@ -301,11 +309,11 @@ export default function Home() {
             )}
           </AnimatePresence>
           
-          {/* Verification Flow Visualization */}
+          {/* 验证流程可视化 */}
           <AnimatePresence>
             {currentStep === 3 && signature && (
               <>
-                {/* Arrow from Receiver to Signature Icon */}
+                {/* 从接收方到签名图标的箭头 */}
                 <motion.div 
                   className="receiver-to-signature-arrow"
                   initial={animation === 'verification-success' || animation === 'verification-failure' ? { scaleX: 0 } : { scaleX: 1 }}
@@ -313,7 +321,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                 />
                 
-                {/* Arrow down from Signature */}
+                {/* 从签名向下的箭头 */}
                 <motion.div 
                   className="signature-verification-arrow"
                   initial={animation === 'verification-success' || animation === 'verification-failure' ? { scaleY: 0 } : { scaleY: 1 }}
@@ -321,7 +329,7 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.3 }}
                 />
                 
-                {/* Arrow from Public Key to Signature Verification Process */}
+                {/* 从公钥到签名验证过程的箭头 */}
                 <motion.div 
                   className="pubkey-to-verification-arrow"
                   initial={animation === 'verification-success' || animation === 'verification-failure' ? { scaleX: 0 } : { scaleX: 1 }}
@@ -329,7 +337,7 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.6 }}
                 />
                 
-                {/* Verification Result */}
+                {/* 验证结果显示 */}
                 {(animation === 'verification-success' || animation === 'verification-failure') && verificationResult !== null && (
                   <motion.div 
                     className="verification-result-container"
@@ -351,7 +359,7 @@ export default function Home() {
             )}
           </AnimatePresence>
           
-          {/* Attack Visualization */}
+          {/* 攻击可视化 */}
           <AnimatePresence>
             {currentStep === 3 && (attackMode || verificationResult === true) && (
               <motion.div 
@@ -378,7 +386,7 @@ export default function Home() {
             )}
           </AnimatePresence>
           
-          {/* Attack Input Dialog */}
+          {/* 攻击输入对话框 */}
           <AnimatePresence>
             {showAttackInput && (
               <motion.div 
@@ -408,11 +416,11 @@ export default function Home() {
             )}
           </AnimatePresence>
           
-          {/* Attack Flow Visualization */}
+          {/* 攻击流程可视化 */}
           <AnimatePresence>
             {attackMode && modifiedHash && (
               <>
-                {/* Arrow from Original Message to Hacker */}
+                {/* 从原始消息到黑客的箭头 */}
                 <motion.div 
                   className="message-to-hacker-arrow"
                   initial={{ scaleY: 0 }}
@@ -420,7 +428,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                 />
                 
-                {/* Hacker Label - 不再显示黑客图标，因为上方已经有了 */}
+                {/* 黑客标签 - 不再显示黑客图标，因为上方已经有了 */}
                 <motion.div 
                   className="hacker-flow-container"
                   initial={{ opacity: 0 }}
@@ -432,7 +440,7 @@ export default function Home() {
                   </div>
                 </motion.div>
                 
-                {/* Arrow from Hacker to Modified Message */}
+                {/* 从黑客到修改后消息的箭头 */}
                 <motion.div 
                   className="hacker-to-modified-arrow"
                   initial={{ scaleX: 0 }}
@@ -440,7 +448,7 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.4 }}
                 />
                 
-                {/* Modified Message */}
+                {/* 修改后的消息 */}
                 <motion.div 
                   className="modified-message-container"
                   initial={{ opacity: 0 }}
@@ -452,7 +460,7 @@ export default function Home() {
                   </div>
                 </motion.div>
                 
-                {/* Arrow from Modified Message to Modified Hash */}
+                {/* 从修改后消息到修改后哈希的箭头 */}
                 <motion.div 
                   className="modified-to-hash-arrow"
                   initial={{ scaleX: 0 }}
@@ -460,7 +468,7 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.8 }}
                 />
                 
-                {/* Modified Hash */}
+                {/* 修改后的哈希值 */}
                 <motion.div 
                   className="modified-hash-container"
                   initial={{ opacity: 0 }}
@@ -472,7 +480,7 @@ export default function Home() {
                   </div>
                 </motion.div>
                 
-                {/* Arrow from Modified Hash to Verification */}
+                {/* 从修改后哈希到验证的箭头 */}
                 <motion.div 
                   className="modified-to-verification-arrow"
                   initial={{ scaleX: 0 }}
@@ -480,7 +488,7 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 1.2 }}
                 />
                 
-                {/* 新增：Arrow from Hash to Verification Failure */}
+                {/* 从哈希到验证失败的箭头 */}
                 {verificationResult === false && (
                 <motion.div 
                   className="hash-to-verification-failure-arrow"
@@ -490,7 +498,7 @@ export default function Home() {
                 />
                 )}
                 
-                {/* Arrow from Hash to Verification Success (when attack with same message) */}
+                {/* 从哈希到验证成功的箭头（当使用相同消息进行攻击时） */}
                 {verificationResult === true && (
                 <motion.div 
                   className="hash-to-verification-success-arrow"

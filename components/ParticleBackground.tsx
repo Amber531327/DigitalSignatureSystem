@@ -1,21 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 
+// 粒子接口定义
 interface Particle {
-  x: number;
-  y: number;
-  size: number;
-  speedX: number;
-  speedY: number;
-  color: string;
-  opacity: number;
+  x: number;       // 粒子的x坐标
+  y: number;       // 粒子的y坐标
+  size: number;    // 粒子大小
+  speedX: number;  // x方向速度
+  speedY: number;  // y方向速度
+  color: string;   // 粒子颜色
+  opacity: number; // 透明度
 }
 
+// 粒子背景组件：创建动态粒子效果作为背景
 const ParticleBackground: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particles = useRef<Particle[]>([]);
-  const animationFrameId = useRef<number>(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);      // Canvas元素引用
+  const particles = useRef<Particle[]>([]);               // 粒子数组引用
+  const animationFrameId = useRef<number>(0);             // 动画帧ID引用
 
-  // Initialize canvas and particles
+  // 初始化画布和粒子
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -23,65 +25,65 @@ const ParticleBackground: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size to window size
+    // 设置画布大小为窗口大小
     const handleResize = () => {
       if (canvas) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // Reinitialize particles when resize
+        // 窗口调整大小时重新初始化粒子
         initParticles();
       }
     };
 
-    // Initialize particles
+    // 初始化粒子
     const initParticles = () => {
       particles.current = [];
-      const numParticles = Math.floor((canvas.width * canvas.height) / 15000); // Adjust number based on screen size
+      const numParticles = Math.floor((canvas.width * canvas.height) / 15000); // 根据屏幕大小调整粒子数量
       
       for (let i = 0; i < numParticles; i++) {
         particles.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 1,
-          speedX: Math.random() * 0.5 - 0.25,
-          speedY: Math.random() * 0.5 - 0.25,
-          color: getRandomColor(),
-          opacity: Math.random() * 0.5 + 0.2
+          x: Math.random() * canvas.width,         // 随机x位置
+          y: Math.random() * canvas.height,        // 随机y位置
+          size: Math.random() * 3 + 1,             // 随机大小
+          speedX: Math.random() * 0.5 - 0.25,      // 随机x速度
+          speedY: Math.random() * 0.5 - 0.25,      // 随机y速度
+          color: getRandomColor(),                 // 随机颜色
+          opacity: Math.random() * 0.5 + 0.2       // 随机透明度
         });
       }
     };
     
-    // Get a random digital signature themed color
+    // 获取随机数字签名主题颜色
     const getRandomColor = () => {
       const colors = [
-        'rgba(30, 144, 255, 0.5)', // Digital blue
-        'rgba(0, 128, 0, 0.5)',     // Secure green
-        'rgba(255, 165, 0, 0.5)',   // Key orange
-        'rgba(138, 43, 226, 0.5)'   // Crypto purple
+        'rgba(30, 144, 255, 0.5)', // 数字蓝
+        'rgba(0, 128, 0, 0.5)',     // 安全绿
+        'rgba(255, 165, 0, 0.5)',   // 密钥橙
+        'rgba(138, 43, 226, 0.5)'   // 加密紫
       ];
       return colors[Math.floor(Math.random() * colors.length)];
     };
 
-    // Animation function
+    // 动画函数
     const animate = () => {
       if (!canvas || !ctx) return;
       
-      // Clear canvas
+      // 清除画布
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Update and draw particles
+      // 更新并绘制粒子
       particles.current.forEach(particle => {
-        // Update position
+        // 更新位置
         particle.x += particle.speedX;
         particle.y += particle.speedY;
         
-        // Wrap around edges
+        // 边缘环绕
         if (particle.x < 0) particle.x = canvas.width;
         if (particle.x > canvas.width) particle.x = 0;
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
         
-        // Draw particle
+        // 绘制粒子
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = particle.color;
@@ -90,16 +92,16 @@ const ParticleBackground: React.FC = () => {
         ctx.globalAlpha = 1;
       });
       
-      // Request next frame
+      // 请求下一帧
       animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    // Initialize and start animation
+    // 初始化并开始动画
     handleResize();
     window.addEventListener('resize', handleResize);
     animate();
 
-    // Cleanup
+    // 清理函数
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId.current);
@@ -116,8 +118,8 @@ const ParticleBackground: React.FC = () => {
         left: 0,
         width: '100%',
         height: '100%',
-        pointerEvents: 'none',
-        zIndex: -1
+        pointerEvents: 'none', // 不捕获鼠标事件
+        zIndex: -1              // 放在最底层
       }}
     />
   );
