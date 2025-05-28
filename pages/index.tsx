@@ -6,6 +6,7 @@ import VisualizationArea from '../components/VisualizationArea';
 import UserRole from '../components/UserRole';
 import SuccessConfetti from '../components/SuccessConfetti';
 import ParticleBackground from '../components/ParticleBackground';
+import Link from 'next/link';
 
 
 export default function Home() {
@@ -513,6 +514,13 @@ export default function Home() {
         </div>
         
         <div className="keys-display-area"></div>
+      </div>
+
+      {/* 底部性能评估跳转按钮 */}
+      <div className="performance-button-container">
+        <Link href="/performance" className="performance-button">
+          进入性能评估实验
+        </Link>
       </div>
 
     </div>

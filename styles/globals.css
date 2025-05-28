@@ -1341,4 +1341,62 @@ textarea {
   .message-to-hacker-arrow {
     height: 40px;
   }
+
+  /* 性能评估按钮容器样式 */
+  .performance-button-container {
+    position: fixed;       /* 固定定位 */
+    bottom: 0;             /* 页面底部 */
+    left: 0;               
+    width: 100%;           
+    background-color: rgb(255, 255, 255); 
+    text-align: center;    
+    padding: 10px 0;       
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); 
+    z-index: 1000;         /* 确保在最上层 */
+  }
+  
+  /* 按钮本身的样式 */
+  .performance-button {
+    display: inline-block;
+    background-color: #007bff;  /* 蓝色背景 */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;      
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .performance-button:hover {
+    background-color: #0056b3;  /* 悬浮时深蓝色 */
+  }
+}
+
+/* 性能评估按钮 */
+.performance-button-container {
+  position: fixed;       
+  bottom: 0;             
+  left: 0;              
+  width: 100%;           
+  background-color: rgb(255, 255, 255);
+  text-align: center;    /* 按钮居中 */
+  padding: 10px 0;       
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1); 
+  z-index: 1000;         /* 确保在最上层 */
+}
+
+/* 按钮本身的样式 */
+.performance-button {
+  display: inline-block;
+  background-color: #007bff;  
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;      
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.performance-button:hover {
+  background-color: #0056b3;  /* 悬浮时深蓝色 */
 } 
